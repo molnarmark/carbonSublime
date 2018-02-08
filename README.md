@@ -9,6 +9,8 @@ Add this to your Sublime keymap file:
 `
     {"keys": ["f3"], "command": "carbon_sublime"},
 `
+Then go into your file, select a region, and press the bound key.
+
 ## Configuration
 You can find the configuration file in the folder where you placed the plugin.
 It defaults to:
