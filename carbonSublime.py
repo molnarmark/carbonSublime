@@ -15,7 +15,7 @@ class CarbonSublimeCommand(sublime_plugin.TextCommand):
 
     body = self.view.substr(sublime.Region(self.view.sel()[0].a, self.view.sel()[0].b)).strip()
     if sys.platform == "win32":
-      body = self.view.substr(sublime.Region(self.view.sel()[0].a, self.view.sel()[0].b)).strip().replace("\n", "%0A").replace("\t", "%09")
+      body = body.replace("\n", "%0A").replace("\t", "%09")
 
     baseUrl = "https://carbon.now.sh/"
     queryString = "?bg={}&t={}&ds=true&wc=true&wa=true&pv=48px&ph=32px&ln=true&code={}".format(settings.get("background-color"), settings.get("color-scheme"), body)
