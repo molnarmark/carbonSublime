@@ -6,7 +6,6 @@ from urllib.parse import urlencode
 settings_file = 'carbonSublime.sublime-settings'
 settings = None
 
-
 class CarbonSublimeCommand(sublime_plugin.TextCommand):
 
     def run(self, view):
@@ -35,7 +34,6 @@ class CarbonSublimeCommand(sublime_plugin.TextCommand):
         }
 
         webbrowser.open(base_url + urlencode(query))
-
 
 def plugin_loaded():
     global settings
