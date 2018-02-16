@@ -24,12 +24,12 @@ class CarbonSublimeCommand(sublime_plugin.TextCommand):
         query = {
             'bg': settings.get('background-color'),
             't': settings.get('color-scheme'),
-            'ds': True,
-            'wc': True,
+            'ds': settings.get('drop-shadow'),
+            'wc': settings.get('window-controls'),
             'wa': True,
             'pv': '48px',
             'ph': '32px',
-            'ln': True,
+            'ln': settings.get('line-numbers'),
             'code': body
         }
 
@@ -40,8 +40,11 @@ def plugin_loaded():
 
     settings = sublime.load_settings(settings_file)
 
-    if not settings.has('color-scheme'):
+    if not settings.has('window-controls'):
         settings.set('color-scheme', 'seti')
         settings.set('background-color', 'rgba(12,108,189,1)')
+        settings.set('window-controls', 'true')
+        settings.set('drop-shadow', 'true')
+        settings.set('line-numbers', 'true')
 
     sublime.save_settings(settings_file)
