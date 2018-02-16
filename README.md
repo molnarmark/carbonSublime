@@ -1,8 +1,8 @@
 # 🖥 Sublime Text 3 Integration for [Carbon](https://carbon.now.sh).
 
 ## Installation
-Place the `carbonSublime.py` in your User directory.
-It will be available via Package Control if people find it useful.
+Search for Carbon Enhanced via Package Control.
+
 
 ## Usage
 Add this to your Sublime keymap file:
