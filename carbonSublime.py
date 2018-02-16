@@ -1,32 +1,49 @@
 import sublime
 import sublime_plugin
-import webbrowser, sys
-from urllib.parse import urlparse
+import webbrowser
+from urllib.parse import urlencode
 
-settingsFile = "carbonSublime.sublime-settings"
+settings_file = 'carbonSublime.sublime-settings'
 settings = None
 
+
 class CarbonSublimeCommand(sublime_plugin.TextCommand):
-  def run(self, view):
-    self.generate_carbon_link(view)
 
-  def generate_carbon_link(self, view):
-    global settings
+    def run(self, view):
+        self.generate_carbon_link(view)
 
-    body = self.view.substr(sublime.Region(self.view.sel()[0].a, self.view.sel()[0].b)).strip()
-    if sys.platform == "win32":
-      body = body.replace("\n", "%0A").replace("\t", "%09")
+    def generate_carbon_link(self, view):
+        global settings
 
-    baseUrl = "https://carbon.now.sh/"
-    queryString = "?bg={}&t={}&ds=true&wc=true&wa=true&pv=48px&ph=32px&ln=true&code={}".format(settings.get("background-color"), settings.get("color-scheme"), body)
-    uri = urlparse(baseUrl + queryString).geturl()
-    webbrowser.open(uri)
+        body = self.view.substr(
+            sublime.Region(
+                self.view.sel()[0].a, self.view.sel()[0].b
+            )).strip()
+
+        base_url = 'https://carbon.now.sh/?'
+
+        query = {
+            'bg': settings.get('background-color'),
+            't': settings.get('color-scheme'),
+            'ds': True,
+            'wc': True,
+            'wa': True,
+            'pv': '48px',
+            'ph': '32px',
+            'ln': True,
+            'code': body
+        }
+
+        webbrowser.open(base_url + urlencode(query))
+
 
 def plugin_loaded():
-  global settings
-  settings = sublime.load_settings(settingsFile)
-  if not settings.has("color-scheme"):
-    settings.set("color-scheme", "seti")
-    settings.set("background-color", "rgba(12,108,189,1)")
+    global settings
 
-  sublime.save_settings(settingsFile)
+    settings = sublime.load_settings(settings_file)
+
+    if not settings.has('color-scheme'):
+        settings.set('color-scheme', 'seti')
+        settings.set('background-color', 'rgba(12,108,189,1)')
+
+    sublime.save_settings(settings_file)
