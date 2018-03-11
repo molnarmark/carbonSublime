@@ -37,7 +37,6 @@ class CarbonSublimeCommand(sublime_plugin.TextCommand):
 
 def plugin_loaded():
     global settings
-
     settings = sublime.load_settings(settings_file)
 
     if not settings.has('window-controls'):
