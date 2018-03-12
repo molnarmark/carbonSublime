@@ -78,11 +78,6 @@ LANGUAGE_MAPPING = {
     'YAML': 'yaml'
 }
 
-#
-# START - util functions
-#
-
-# Converts tabs into spaces
 def convert_tabs_using_tab_size(view, string):
   tab_size = view.settings().get("tab_size")
   
@@ -91,14 +86,9 @@ def convert_tabs_using_tab_size(view, string):
 
   return string.replace("\t", " ")
 
-# Get how much whitespace is in the current region from the gutter compared to the begin of the region
-def get_whitespace_from_line_begin(view, region) :
+def get_whitespace_from_line_beginning(view, region) :
   n_space = len(view.substr(view.line(region.begin()))) - len(view.substr(view.line(region.begin())).lstrip())
   return " " * n_space
-
-#
-# END - util functions
-#
 
 class CarbonSublimeCommand(sublime_plugin.TextCommand):
 
@@ -113,8 +103,6 @@ class CarbonSublimeCommand(sublime_plugin.TextCommand):
         code = ""
 
         if view.sel()[0].begin() != view.sel()[0].end():
-            # consider the only selected text
-            # 
             # get whitespace of the current selection
             whitespace = convert_tabs_using_tab_size(view, get_whitespace_from_line_begin(view, view.sel()[0]))
             body = view.substr(view.sel()[0])
@@ -124,7 +112,6 @@ class CarbonSublimeCommand(sublime_plugin.TextCommand):
 
         body = convert_tabs_using_tab_size(view, body.strip())
 
-        # Put only about 3400 characters on the URL string. More than that won't work (in that case use https://carbon.now.sh directly).
         body = body[0:3400]
         
         # create the final code that will be sent to the carbon.sh website
@@ -133,7 +120,7 @@ class CarbonSublimeCommand(sublime_plugin.TextCommand):
             line = line.rstrip()
             # index_start start to 0 the first time for the first line
             index_start = len(whitespace) if code else 0
-            # start considering the line at index_start in order to normalize the text (deleting useless whitespaces)
+            # start considering the line at index_start in order to normalize the text (deleting useless whitespace)
             code += line[index_start:] + "\n"
 
         return code
