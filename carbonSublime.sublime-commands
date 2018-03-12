@@ -1,3 +1,6 @@
 [
-  {"caption": "Carbon: share selection",      "command": "carbon_sublime"}
+  {
+    "caption": "Carbon: share selection",
+    "command": "carbon_sublime"
+  }
 ]
