@@ -21,10 +21,13 @@ You can find the configuration file in the User folder. (`Preferences -> Browse 
 It defaults to:
 ```json
 {
-	"background-color": "rgba(12,108,189,1)",
-	"color-scheme": "seti",
-	"drop-shadow": "true",
-	"line-numbers": "true",
-	"window-controls": "true"
+  "background-color": "rgba(12, 108, 189, 1)",
+  "theme": "seti",
+  "drop-shadow": "true",
+  "window-controls": "true",
+  "width-adjustment": "true",
+  "padding-vertical": "48px",
+  "padding-horizontal": "32px",
+  "line-numbers": "true"
 }
 ```
