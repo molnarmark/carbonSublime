@@ -152,7 +152,7 @@ class CarbonSublimeCommand(sublime_plugin.TextCommand):
             language = 'auto'
 
         base_url = 'https://carbon.now.sh/?'
-        print(settings, settings.get('theme'))
+        
         query = {
             'bg'  : settings.get('background-color'),
             't'   : settings.get('theme'),
@@ -171,7 +171,7 @@ class CarbonSublimeCommand(sublime_plugin.TextCommand):
 def plugin_loaded():
     global settings
     settings = sublime.load_settings(settings_file)
-    print(settings, settings.get('theme'))
+    
     if not settings.has('window-controls'):
         settings.set('theme', 'seti')
         settings.set('background-color', 'rgba(12, 108, 189, 1)')
