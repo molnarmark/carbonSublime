@@ -86,7 +86,7 @@ def convert_tabs_using_tab_size(view, string):
 
   return string.replace("\t", " ")
 
-def get_whitespace_from_line_beginning(view, region) :
+def get_whitespace_from_line_beginning(view, region):
   n_space = len(view.substr(view.line(region.begin()))) - len(view.substr(view.line(region.begin())).lstrip())
   return " " * n_space
 
@@ -104,7 +104,7 @@ class CarbonSublimeCommand(sublime_plugin.TextCommand):
 
         if view.sel()[0].begin() != view.sel()[0].end():
             # get whitespace of the current selection
-            whitespace = convert_tabs_using_tab_size(view, get_whitespace_from_line_begin(view, view.sel()[0]))
+            whitespace = convert_tabs_using_tab_size(view, get_whitespace_from_line_beginning(view, view.sel()[0]))
             body = view.substr(view.sel()[0])
         else:
             # no text selected, so consider the whole view
