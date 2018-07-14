@@ -80,7 +80,7 @@ LANGUAGE_MAPPING = {
 
 def convert_tabs_using_tab_size(view, string):
   tab_size = view.settings().get("tab_size")
-  
+
   if tab_size:
     return string.replace("\t", " " * tab_size)
 
@@ -113,7 +113,7 @@ class CarbonSublimeCommand(sublime_plugin.TextCommand):
         body = convert_tabs_using_tab_size(view, body.strip())
 
         body = body[0:3400]
-        
+
         # create the final code that will be sent to the carbon.sh website
         for line in body.splitlines():
             # remove whitespace from the right
@@ -126,20 +126,23 @@ class CarbonSublimeCommand(sublime_plugin.TextCommand):
         return code
 
     def generate_carbon_link(self, code):
-        global settings
         view = self.view
+        settings = sublime.load_settings(settings_file)
 
         # get current view syntax
         syntax = os.path.splitext(os.path.basename(view.settings().get("syntax")))[0]
-        if syntax in LANGUAGE_MAPPING:
-            # set language from the mapping
+
+        # set language from the mapping
+        language_mapping = settings.get('language_mapping')
+        if isinstance(language_mapping, dict) and syntax in language_mapping:
+            language = language_mapping[syntax]
+        elif syntax in LANGUAGE_MAPPING:
             language = LANGUAGE_MAPPING[syntax]
         else:
-            # otherwise set 'auto': Carbon will try to understand which language is used.
             language = 'auto'
 
         base_url = 'https://carbon.now.sh/?'
-        
+
         query = {
             'bg'  : settings.get('background-color'),
             't'   : settings.get('theme'),
@@ -154,19 +157,3 @@ class CarbonSublimeCommand(sublime_plugin.TextCommand):
         }
 
         webbrowser.open(base_url + urlencode(query))
-
-def plugin_loaded():
-    global settings
-    settings = sublime.load_settings(settings_file)
-    
-    if not settings.has('window-controls'):
-        settings.set('theme', 'seti')
-        settings.set('background-color', 'rgba(12, 108, 189, 1)')
-        settings.set('window-controls', 'true')
-        settings.set('drop-shadow', 'true')
-        settings.set('line-numbers', 'true')
-        settings.set('width-adjustment', 'true'),
-        settings.set('padding-vertical', '48px'),
-        settings.set('padding-horizontal', '32px'),
-
-    sublime.save_settings(settings_file)

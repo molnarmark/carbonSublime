@@ -28,6 +28,7 @@ It defaults to:
   "width-adjustment": "true",
   "padding-vertical": "48px",
   "padding-horizontal": "32px",
-  "line-numbers": "true"
+  "line-numbers": "true",
+  "language_mapping": {}
 }
 ```
