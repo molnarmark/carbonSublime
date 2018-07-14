@@ -131,11 +131,14 @@ class CarbonSublimeCommand(sublime_plugin.TextCommand):
 
         # get current view syntax
         syntax = os.path.splitext(os.path.basename(view.settings().get("syntax")))[0]
-        if syntax in LANGUAGE_MAPPING:
-            # set language from the mapping
+
+        # set language from the mapping
+        language_mapping = settings.get('language_mapping')
+        if isinstance(language_mapping, dict) and syntax in language_mapping:
+            language = language_mapping[syntax]
+        elif syntax in LANGUAGE_MAPPING:
             language = LANGUAGE_MAPPING[syntax]
         else:
-            # otherwise set 'auto': Carbon will try to understand which language is used.
             language = 'auto'
 
         base_url = 'https://carbon.now.sh/?'
