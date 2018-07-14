@@ -1,0 +1,29 @@
+[
+  {
+    "caption": "Preferences",
+    "id": "preferences",
+    "mnemonic": "n",
+    "children": [
+      {
+        "caption": "Package Settings",
+        "id": "package-settings",
+        "mnemonic": "P",
+        "children": [
+          {
+            "caption": "carbonSublime",
+            "children": [
+              {
+                "caption": "Settings",
+                "command": "edit_settings",
+                "args": {
+                  "base_file": "${packages}/carbonSublime/carbonSublime.sublime-settings",
+                  "default": "{\n\t$0\n}\n"
+                }
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+]
