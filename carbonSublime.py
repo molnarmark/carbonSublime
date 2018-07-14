@@ -5,6 +5,7 @@ import sublime
 import sublime_plugin
 
 SETTINGS_FILE = 'carbonSublime.sublime-settings'
+CODE_MAX_LENGTH = 3400
 
 # Carbon language mapping
 LANGUAGE_MAPPING = {
@@ -118,7 +119,11 @@ class CarbonSublimeCommand(sublime_plugin.TextCommand):
 
         body = convert_tabs_using_tab_size(view, body.strip())
 
-        body = body[0:3400]
+        if len(body) > CODE_MAX_LENGTH:
+            body = body[:CODE_MAX_LENGTH]
+            view.window().status_message(
+                'carbonSublime: The code was trimmed to {}.'.format(CODE_MAX_LENGTH)
+            )
 
         # create the final code that will be sent to the carbon.sh website
         for line in body.splitlines():
