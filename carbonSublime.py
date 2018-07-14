@@ -1,7 +1,8 @@
+import os
+from urllib.parse import urlencode
+import webbrowser
 import sublime
 import sublime_plugin
-import webbrowser, os
-from urllib.parse import urlencode
 
 settings_file = 'carbonSublime.sublime-settings'
 settings = None
@@ -75,23 +76,27 @@ LANGUAGE_MAPPING = {
     'VHDL': 'vhdl',
     'Vue': 'vue',
     'XML': 'xml',
-    'YAML': 'yaml'
+    'YAML': 'yaml',
 }
 
+
 def convert_tabs_using_tab_size(view, string):
-  tab_size = view.settings().get("tab_size")
+    tab_size = view.settings().get("tab_size")
 
-  if tab_size:
-    return string.replace("\t", " " * tab_size)
+    if tab_size:
+        return string.replace("\t", " " * tab_size)
 
-  return string.replace("\t", " ")
+    return string.replace("\t", " ")
+
 
 def get_whitespace_from_line_beginning(view, region):
-  n_space = len(view.substr(view.line(region.begin()))) - len(view.substr(view.line(region.begin())).lstrip())
-  return " " * n_space
+    n_space = len(view.substr(view.line(region.begin()))) - len(
+        view.substr(view.line(region.begin())).lstrip()
+    )
+    return " " * n_space
+
 
 class CarbonSublimeCommand(sublime_plugin.TextCommand):
-
     def run(self, edit, **kwargs):
         code = self.normalize_code()
         self.generate_carbon_link(code)
@@ -104,7 +109,9 @@ class CarbonSublimeCommand(sublime_plugin.TextCommand):
 
         if view.sel()[0].begin() != view.sel()[0].end():
             # get whitespace of the current selection
-            whitespace = convert_tabs_using_tab_size(view, get_whitespace_from_line_beginning(view, view.sel()[0]))
+            whitespace = convert_tabs_using_tab_size(
+                view, get_whitespace_from_line_beginning(view, view.sel()[0])
+            )
             body = view.substr(view.sel()[0])
         else:
             # no text selected, so consider the whole view
@@ -144,16 +151,16 @@ class CarbonSublimeCommand(sublime_plugin.TextCommand):
         base_url = 'https://carbon.now.sh/?'
 
         query = {
-            'bg'  : settings.get('background-color'),
-            't'   : settings.get('theme'),
-            'l'   : language,
-            'ds'  : settings.get('drop-shadow'),
-            'wc'  : settings.get('window-controls'),
-            'wa'  : settings.get('width-adjustment'),
-            'pv'  : settings.get('padding-vertical'),
-            'ph'  : settings.get('padding-horizontal'),
-            'ln'  : settings.get('line-numbers'),
-            'code': code
+            'bg': settings.get('background-color'),
+            't': settings.get('theme'),
+            'l': language,
+            'ds': settings.get('drop-shadow'),
+            'wc': settings.get('window-controls'),
+            'wa': settings.get('width-adjustment'),
+            'pv': settings.get('padding-vertical'),
+            'ph': settings.get('padding-horizontal'),
+            'ln': settings.get('line-numbers'),
+            'code': code,
         }
 
         webbrowser.open(base_url + urlencode(query))
