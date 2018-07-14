@@ -4,8 +4,7 @@ import webbrowser
 import sublime
 import sublime_plugin
 
-settings_file = 'carbonSublime.sublime-settings'
-settings = None
+SETTINGS_FILE = 'carbonSublime.sublime-settings'
 
 # Carbon language mapping
 LANGUAGE_MAPPING = {
@@ -134,7 +133,7 @@ class CarbonSublimeCommand(sublime_plugin.TextCommand):
 
     def generate_carbon_link(self, code):
         view = self.view
-        settings = sublime.load_settings(settings_file)
+        settings = sublime.load_settings(SETTINGS_FILE)
 
         # get current view syntax
         syntax = os.path.splitext(os.path.basename(view.settings().get("syntax")))[0]
