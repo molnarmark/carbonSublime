@@ -10,7 +10,13 @@ Install Carbon via Package Control.
 
 ### Usage
 
-Add this to your Sublime keymap file:
+#### Command Palette
+
+You can use the command `Carbon: share selection` in command palette (ctrl/cmd + shift + p) to open Carbon.
+
+#### Keymap
+
+This package doesn't provide a default keymap. If you need, add a keymap setting like the following to your Sublime keymap file:
 
 ```json
 {"keys": ["f3"], "command": "carbon_sublime"}
