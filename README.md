@@ -3,10 +3,10 @@
 # 🖥 Carbon Sublime
 
 ## Getting Started
-Carbon Sublime (or Carbon Enhanced via Package Control) is a Sublime Text 3 Plugin for [Carbon](https://carbon.now.sh).
+Carbon Sublime (or Carbon via Package Control) is a Sublime Text 3 Plugin for [Carbon](https://carbon.now.sh).
 
 ### Installation
-Install Carbon Enhanced via Package Control.
+Install Carbon via Package Control.
 
 
 ### Usage
