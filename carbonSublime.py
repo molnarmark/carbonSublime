@@ -104,13 +104,16 @@ class CarbonSublimeCommand(sublime_plugin.TextCommand):
     def normalize_code(self):
         view = self.view
 
+        settings = sublime.load_settings(SETTINGS_FILE)
+
+        indent_size = 0
         if len(view.sel()) and not view.sel()[0].empty():
             region = view.sel()[0]
-            indent_size = len(get_whitespace_from_line_beginning(view, region))
+            if settings.get("trim_indent"):
+                indent_size = len(get_whitespace_from_line_beginning(view, region))
         else:
             # no text selected, so consider the whole view
             region = sublime.Region(0, view.size())
-            indent_size = 0
 
         body = view.substr(region)
         body = '\n'.join(x[indent_size:].rstrip() for x in body.splitlines())

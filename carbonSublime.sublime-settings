@@ -7,5 +7,6 @@
   "padding-vertical": "48px",
   "padding-horizontal": "32px",
   "line-numbers": "true",
-  "language_mapping": {}
+  "language_mapping": {},
+  "trim_indent": true
 }

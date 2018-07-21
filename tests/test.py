@@ -8,7 +8,7 @@ import webbrowser
 
 import sublime
 
-carbonSublime = sys.modules['carbonSublime.carbonSublime']
+carbonSublime = sys.modules["carbonSublime.carbonSublime"]
 
 
 class TestViewMixin:
@@ -45,6 +45,14 @@ class TestCarbonSublimeCommand(TestViewMixin, unittest.TestCase):
     def setUp(self):
         super().setUp()
         self.command = carbonSublime.CarbonSublimeCommand(self.view)
+        self.trim_indent_orig = self.load_settings().get("trim_indent")
+
+    def tearDown(self):
+        super().tearDown()
+        self.load_settings().set("trim_indent", self.trim_indent_orig)
+
+    def load_settings(self):
+        return sublime.load_settings(carbonSublime.SETTINGS_FILE)
 
     def test_normalize_code_no_indent(self):
         original = "def hello(name):  \n    print('Hello, ' + name))  "
@@ -72,7 +80,16 @@ class TestCarbonSublimeCommand(TestViewMixin, unittest.TestCase):
         code = self.command.normalize_code()
         self.assertEquals(code, expected)
 
-    @mock.patch.object(webbrowser, 'open')
+    def test_normalize_code_without_trimming_indent(self):
+        self.load_settings().set("trim_indent", False)
+        original = "    def hello(name):  \n        print('Hello, ' + name))  "
+        expected = "    def hello(name):\n        print('Hello, ' + name))"
+        self.add_and_select_text(original)
+
+        code = self.command.normalize_code()
+        self.assertEquals(code, expected)
+
+    @mock.patch.object(webbrowser, "open")
     def test_generate_carbon_link(self, open):
         self.assertFalse(open.called)
 
