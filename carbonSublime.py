@@ -103,21 +103,23 @@ class CarbonSublimeCommand(sublime_plugin.TextCommand):
 
     def normalize_code(self):
         view = self.view
-        whitespace = ""
-        body = ""
-        code = ""
 
-        if view.sel()[0].begin() != view.sel()[0].end():
+        if len(view.sel()) and not view.sel()[0].empty():
+            region = view.sel()[0]
             # get whitespace of the current selection
             whitespace = convert_tabs_using_tab_size(
-                view, get_whitespace_from_line_beginning(view, view.sel()[0])
+                view, get_whitespace_from_line_beginning(view, region)
             )
-            body = view.substr(view.sel()[0])
+            indent_size = len(whitespace)
+            body = view.substr(region)
+            body = '\n'.join(x.rstrip()[indent_size:] for x in body.splitlines())
         else:
             # no text selected, so consider the whole view
-            body = view.substr(sublime.Region(0, view.size()))
+            region = sublime.Region(0, view.size())
+            body = view.substr(region)
+            body = '\n'.join(x.rstrip() for x in body.splitlines())
 
-        body = convert_tabs_using_tab_size(view, body.strip())
+        body = convert_tabs_using_tab_size(view, body)
 
         if len(body) > CODE_MAX_LENGTH:
             body = body[:CODE_MAX_LENGTH]
@@ -125,16 +127,7 @@ class CarbonSublimeCommand(sublime_plugin.TextCommand):
                 'carbonSublime: The code was trimmed to {}.'.format(CODE_MAX_LENGTH)
             )
 
-        # create the final code that will be sent to the carbon.sh website
-        for line in body.splitlines():
-            # remove whitespace from the right
-            line = line.rstrip()
-            # index_start start to 0 the first time for the first line
-            index_start = len(whitespace) if code else 0
-            # start considering the line at index_start in order to normalize the text (deleting useless whitespace)
-            code += line[index_start:] + "\n"
-
-        return code
+        return body
 
     def generate_carbon_link(self, code):
         view = self.view

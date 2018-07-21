@@ -48,7 +48,7 @@ class TestCarbonSublimeCommand(TestViewMixin, unittest.TestCase):
 
     def test_normalize_code_no_indent(self):
         original = "def hello(name):  \n    print('Hello, ' + name))  "
-        expected = "def hello(name):\n    print('Hello, ' + name))\n"
+        expected = "def hello(name):\n    print('Hello, ' + name))"
         self.add_and_select_text(original)
 
         code = self.command.normalize_code()
@@ -56,8 +56,16 @@ class TestCarbonSublimeCommand(TestViewMixin, unittest.TestCase):
 
     def test_normalize_code_with_indent(self):
         original = "    def hello(name):  \n    print('Hello, ' + name))  "
-        expected = "def hello(name):\n    print('Hello, ' + name))\n"
+        expected = "def hello(name):\n    print('Hello, ' + name))"
         self.add_and_select_text(original)
+
+        code = self.command.normalize_code()
+        self.assertEquals(code, expected)
+
+    def test_normalize_code_no_selection(self):
+        original = "def hello(name):  \n    print('Hello, ' + name))  \n"
+        expected = "def hello(name):\n    print('Hello, ' + name))\n"
+        self.add_text(original)
 
         code = self.command.normalize_code()
         self.assertEquals(code, expected)
@@ -71,7 +79,10 @@ class TestCarbonSublimeCommand(TestViewMixin, unittest.TestCase):
         self.assertTrue(open.called)
 
     def add_and_select_text(self, text):
-        self.view.run_command("insert", {"characters": text})
+        self.add_text(text)
         selection = self.view.sel()
         selection.clear()
         selection.add(sublime.Region(0, self.view.size()))
+
+    def add_text(self, text):
+        self.view.run_command("insert", {"characters": text})
