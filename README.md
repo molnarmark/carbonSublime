@@ -12,11 +12,11 @@ Install Carbon via Package Control.
 
 #### Command Palette
 
-You can use the command `Carbon: share selection` in command palette (ctrl/cmd + shift + p) to open Carbon.
+You can use the command `Carbon: share selection` from the command palette (ctrl/cmd + shift + p) to open Carbon.
 
 #### Keymap
 
-This package doesn't provide a default keymap. If you need, add a keymap setting like the following to your Sublime keymap file:
+This package doesn't provide a default keymap. If you need to, add a keymap setting like the following to your Sublime keymap file:
 
 ```json
 {"keys": ["f3"], "command": "carbon_sublime"}
@@ -44,4 +44,4 @@ You can open the configuration file via the menu (Preferences ➡ Package Settin
 ```
 
 - `language_mapping`: (`dict`) An extra setting which maps syntaxes to Carbon languages. The default (fallback) setting is written as `LANGUAGE_MAPPING` in `carbonSublime.py`.
-- `trim_indent`: (`bool`) If set to true, indents are trimmed when a selection is made. Otherwise, idents re not trimmed.
+- `trim_indent`: (`bool`) If set to true, indents are trimmed when a selection is made.
