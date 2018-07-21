@@ -55,7 +55,8 @@ class TestCarbonSublimeCommand(TestViewMixin, unittest.TestCase):
         self.assertEquals(code, expected)
 
     def test_normalize_code_with_indent(self):
-        original = "    def hello(name):  \n    print('Hello, ' + name))  "
+        self.view.settings().set("tab_size", 4)
+        original = "\tdef hello(name):  \n\t\tprint('Hello, ' + name))  "
         expected = "def hello(name):\n    print('Hello, ' + name))"
         self.add_and_select_text(original)
 
@@ -63,8 +64,9 @@ class TestCarbonSublimeCommand(TestViewMixin, unittest.TestCase):
         self.assertEquals(code, expected)
 
     def test_normalize_code_no_selection(self):
-        original = "def hello(name):  \n    print('Hello, ' + name))  \n"
-        expected = "def hello(name):\n    print('Hello, ' + name))\n"
+        self.view.settings().set("tab_size", 4)
+        original = "\tdef hello(name):  \n\t\tprint('Hello, ' + name))  \n"
+        expected = "    def hello(name):\n        print('Hello, ' + name))"
         self.add_text(original)
 
         code = self.command.normalize_code()
@@ -85,4 +87,6 @@ class TestCarbonSublimeCommand(TestViewMixin, unittest.TestCase):
         selection.add(sublime.Region(0, self.view.size()))
 
     def add_text(self, text):
-        self.view.run_command("insert", {"characters": text})
+        # Uses `insert_snippet` instead of `insert`
+        # as `insert` doesn't honor indents.
+        self.view.run_command("insert_snippet", {"contents": text})
