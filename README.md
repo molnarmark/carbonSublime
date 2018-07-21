@@ -38,6 +38,7 @@ You can open the configuration file via the menu (Preferences ➡ Package Settin
   "padding-vertical": "48px",
   "padding-horizontal": "32px",
   "line-numbers": "true",
-  "language_mapping": {}
+  "language_mapping": {},
+  "trim_indent": true
 }
 ```
