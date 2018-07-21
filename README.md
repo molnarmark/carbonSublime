@@ -42,3 +42,6 @@ You can open the configuration file via the menu (Preferences ➡ Package Settin
   "trim_indent": true
 }
 ```
+
+- `language_mapping`: (`dict`) An extra setting which maps syntaxes to Carbon languages. The default (fallback) setting is written as `LANGUAGE_MAPPING` in `carbonSublime.py`.
+- `trim_indent`: (`bool`) If set to true, indents are trimmed when a selection is made. Otherwise, idents re not trimmed.
