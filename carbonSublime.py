@@ -106,19 +106,14 @@ class CarbonSublimeCommand(sublime_plugin.TextCommand):
 
         if len(view.sel()) and not view.sel()[0].empty():
             region = view.sel()[0]
-            # get whitespace of the current selection
-            whitespace = convert_tabs_using_tab_size(
-                view, get_whitespace_from_line_beginning(view, region)
-            )
-            indent_size = len(whitespace)
-            body = view.substr(region)
-            body = '\n'.join(x.rstrip()[indent_size:] for x in body.splitlines())
+            indent_size = len(get_whitespace_from_line_beginning(view, region))
         else:
             # no text selected, so consider the whole view
             region = sublime.Region(0, view.size())
-            body = view.substr(region)
-            body = '\n'.join(x.rstrip() for x in body.splitlines())
+            indent_size = 0
 
+        body = view.substr(region)
+        body = '\n'.join(x[indent_size:].rstrip() for x in body.splitlines())
         body = convert_tabs_using_tab_size(view, body)
 
         if len(body) > CODE_MAX_LENGTH:
