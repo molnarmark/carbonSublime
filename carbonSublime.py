@@ -148,6 +148,7 @@ class CarbonSublimeCommand(sublime_plugin.TextCommand):
         query = {
             'bg': settings.get('background-color'),
             't': settings.get('theme'),
+            'fm': settings.get('font-family'),
             'l': language,
             'ds': settings.get('drop-shadow'),
             'wc': settings.get('window-controls'),
