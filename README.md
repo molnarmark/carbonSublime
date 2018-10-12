@@ -32,6 +32,7 @@ You can open the configuration file via the menu (Preferences ➡ Package Settin
 {
   "background-color": "rgba(12, 108, 189, 1)",
   "theme": "seti",
+  "font-family": "Hack",
   "drop-shadow": "true",
   "window-controls": "true",
   "width-adjustment": "true",
