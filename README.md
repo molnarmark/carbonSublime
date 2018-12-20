@@ -1,5 +1,4 @@
-# 🖥 Carbon Sublime
-
+![](https://i.imgur.com/nk0e21I.png)
 ## Getting Started
 
 Carbon Sublime (or Carbon via Package Control) is a Sublime Text 3 Plugin for [Carbon](https://carbon.now.sh).
@@ -26,7 +25,9 @@ Then go into your file, select a region, and press the bound key.
 
 ### Configuration
 
-You can open the configuration file via the menu (Preferences ➡ Package Settings ➡ carbonSublime ➡ Settings). It defaults to:
+You can open the configuration file via the menu:
+
+Preferences > Package Settings > carbonSublime > Settings. It defaults to:
 
 ```json
 {
