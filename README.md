@@ -34,6 +34,7 @@ Preferences > Package Settings > carbonSublime > Settings. It defaults to:
   "background-color": "rgba(12, 108, 189, 1)",
   "theme": "seti",
   "font-family": "Hack",
+  "font-size": "16px",
   "drop-shadow": "true",
   "window-controls": "true",
   "width-adjustment": "true",
