@@ -149,6 +149,7 @@ class CarbonSublimeCommand(sublime_plugin.TextCommand):
             'bg': settings.get('background-color'),
             't': settings.get('theme'),
             'fm': settings.get('font-family'),
+            'fs': settings.get('font-size'),
             'l': language,
             'ds': settings.get('drop-shadow'),
             'wc': settings.get('window-controls'),
