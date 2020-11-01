@@ -1,4 +1,4 @@
-![](https://raw.githubusercontent.com/molnarmark/carbonSublime/1.3.0/assets/header.png)
+![](https://raw.githubusercontent.com/molnarmark/carbonSublime/master/assets/header.png)
 
 <p align="center">
   <img src="https://img.shields.io/github/v/release/molnarmark/carbonsublime"/>
@@ -68,7 +68,7 @@ Preferences > Package Settings > Carbon > Settings. By default, it uses the init
 
 #### Custom Configuration
 
-![](https://raw.githubusercontent.com/molnarmark/carbonSublime/1.3.0/assets/exportconfig.png)
+![](https://raw.githubusercontent.com/molnarmark/carbonSublime/master/assets/exportconfig.png)
 
 - Head over to the [Carbon](https://carbon.now.sh)
 - Configure the editor to your preferred look
