@@ -1,0 +1,10 @@
+  ___          _
+ / __|__ _ _ _| |__  ___ _ _
+| (__/ _` | '_| '_ \/ _ \ ' \
+ \___\__,_|_| |_.__/\___/_||_|
+==============================
+
+Thank you for installing Carbon!
+
+For usage instructions, head over to the GitHub repository of this project
+https://github.com/molnarmark/carbonSublime
