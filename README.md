@@ -1,20 +1,21 @@
-![](https://i.imgur.com/nk0e21I.png)
+![](https://raw.githubusercontent.com/molnarmark/carbonSublime/1.3.0/assets/header.png)
 
-## Getting Started
+<p align="center">
+  <img src="https://img.shields.io/github/v/release/molnarmark/carbonsublime"/>
+  <img src="https://img.shields.io/badge/-Sublime%20Text%203-black?style=flat-rounded&logo=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA4AAAAOCAMAAAAolt3jAAAAAXNSR0IB2cksfwAAAAlwSFlzAAALEwAACxMBAJqcGAAAALFQTFRFAAAA/681/6w2/6s2/6s2/6w2/6s2/6s2/6s2/6s2/642/6w2/6s2/6s2/6s2/6s2/6s2/6s2/6s2/6s2/6s2/603/ao2/6s2/6w2/641/6s2/6s2/6w2/qw2/6s2/6s2/6s2/qs29qU1/ao2/6w2/6s2/6s28KEz35Yv4pgw96Y1/6s29qU05psx4Zgw6p0y/6s2/6s2/6s26J0y/6s2/6s2/6s2/6s2/q02/6s2/6w2Gw5i1gAAADt0Uk5TAAEwd74LM73s/wJHod385+/+5a5cB/JqGQHbhjEugtcXWtP/H4HJ9P///8z////78siDHdygWh8CWRR3ufuBAAAAc0lEQVR4nGNggAJGJmYWGJuVjZmdg5MTzObi5uHl4wQBMJefEwoEwFwwU1BIWEQUwRUTl5BkQHA5OaWkZcBcWTl5qAjUHgVFJWUEV0VVTV1DUwvK1RYEyejo6ukjGWVgaGQM5fKZmJqZW0ANEuKxtII5HgC7swjoiG1GPAAAAABJRU5ErkJggg=="/>
+</p>
 
-Carbon is a Sublime Text 3 Plugin for [Carbon](https://carbon.now.sh).
+🚀 Sublime Text 3 Plugin for **[Carbon](https://carbon.now.sh)**.
 
 ### Installation
 
-Install _Carbon_ via Package Control.
+Install **Carbon** via Package Control.
 
-### Usage
-
-#### Command Palette
+#### Command Palette Usage
 
 You can use the command `Carbon: Share Selection` from the command palette (ctrl/cmd + shift + p) to open Carbon.
 
-#### Keymap
+#### Keymap Usage
 
 This package doesn't provide a default keymap. If you need to, add a keymap setting like the following to your Sublime keymap file:
 
@@ -24,11 +25,11 @@ This package doesn't provide a default keymap. If you need to, add a keymap sett
 
 Then go into your file, select a region, and press the bound key.
 
-### Configuration
+#### Configuration
 
 You can open the configuration file via the menu:
 
-Preferences > Package Settings > Carbon > Settings. It defaults to the **default** preset in the Carbon app:
+Preferences > Package Settings > Carbon > Settings. By default, it uses the initial configuration from Carbon:
 
 ```json
 {
@@ -63,8 +64,14 @@ Preferences > Package Settings > Carbon > Settings. It defaults to the **default
 }
 ```
 
-- `trim_indent`: (`bool`) If set to true, indents are trimmed when a selection is made.
+- `trim_indent`: If set to true, lines starting with indents are trimmed.
 
-### Custom Configuration
+#### Custom Configuration
 
-First, head over to the [Carbon](https://carbon.now.sh) app, change the configuration, then head over to the **Misc** tab, press **Export config** and replace the file contents under the **default** node.
+![](https://raw.githubusercontent.com/molnarmark/carbonSublime/1.3.0/assets/exportconfig.png)
+
+- Head over to the [Carbon](https://carbon.now.sh)
+- Configure the editor to your preferred look
+- Click the **Misc** tab
+- press **Export config**
+- Paste the downloaded configuration under the **default** node in the settings.
