@@ -79,6 +79,47 @@ LANGUAGE_MAPPING = {
     'YAML': 'yaml',
 }
 
+# Url parameters
+PARAMS_SHORTHAND = {
+    'backgroundColor': 'bg',
+    'theme': 't',
+    'windowTheme': 'wt',
+    'language': 'l',
+    'dropShadow': 'ds',
+    'dropShadowOffsetY': 'dsyoff',
+    'dropShadowBlurRadius': 'dsblur',
+    'windowControls': 'wc',
+    'widthAdjustment': 'wa',
+    'paddingVertical': 'pv',
+    'paddingHorizontal': 'ph',
+    'lineNumbers': 'ln',
+    'firstLineNumber': 'fl',
+    'fontFamily': 'fm',
+    'fontSize': 'fs',
+    'lineHeight': 'lh',
+    'squaredImage': 'si',
+    'exportSize': 'es',
+    'watermark': 'wm',
+}
+
+def convert_settings_to_params(settings):
+    default = settings.get('default')
+
+    query = {}
+
+    for key in default:
+        try:
+            paramName = PARAMS_SHORTHAND[key]
+        except KeyError:
+            continue
+
+        value = str(default.get(key))
+        if value == 'False' or value == 'True':
+            query[paramName] = value.lower()
+        else:
+            query[paramName] = value
+
+    return query
 
 def convert_tabs_using_tab_size(view, string):
     tab_size = view.settings().get("tab_size")
@@ -130,34 +171,18 @@ class CarbonSublimeCommand(sublime_plugin.TextCommand):
     def generate_carbon_link(self, code):
         view = self.view
         settings = sublime.load_settings(SETTINGS_FILE)
+        query = convert_settings_to_params(settings)
+        query['code'] = code
 
         # get current view syntax
         syntax = os.path.splitext(os.path.basename(view.settings().get("syntax")))[0]
 
         # set language from the mapping
-        language_mapping = settings.get('language_mapping')
-        if isinstance(language_mapping, dict) and syntax in language_mapping:
-            language = language_mapping[syntax]
-        elif syntax in LANGUAGE_MAPPING:
+        if syntax in LANGUAGE_MAPPING:
             language = LANGUAGE_MAPPING[syntax]
         else:
             language = 'auto'
 
+        query['l'] = language
         base_url = 'https://carbon.now.sh/?'
-
-        query = {
-            'bg': settings.get('background-color'),
-            't': settings.get('theme'),
-            'fm': settings.get('font-family'),
-            'fs': settings.get('font-size'),
-            'l': language,
-            'ds': settings.get('drop-shadow'),
-            'wc': settings.get('window-controls'),
-            'wa': settings.get('width-adjustment'),
-            'pv': settings.get('padding-vertical'),
-            'ph': settings.get('padding-horizontal'),
-            'ln': settings.get('line-numbers'),
-            'code': code,
-        }
-
         webbrowser.open(base_url + urlencode(query))
