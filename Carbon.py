@@ -4,7 +4,7 @@ import webbrowser
 import sublime
 import sublime_plugin
 
-SETTINGS_FILE = 'carbonSublime.sublime-settings'
+SETTINGS_FILE = 'Carbon.sublime-settings'
 CODE_MAX_LENGTH = 3400
 
 # Carbon language mapping
@@ -137,7 +137,7 @@ def get_whitespace_from_line_beginning(view, region):
     return " " * n_space
 
 
-class CarbonSublimeCommand(sublime_plugin.TextCommand):
+class CarbonCommand(sublime_plugin.TextCommand):
     def run(self, edit, **kwargs):
         code = self.normalize_code()
         self.generate_carbon_link(code)

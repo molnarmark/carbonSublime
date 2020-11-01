@@ -10,13 +10,13 @@
         "mnemonic": "P",
         "children": [
           {
-            "caption": "carbonSublime",
+            "caption": "Carbon",
             "children": [
               {
                 "caption": "Settings",
                 "command": "edit_settings",
                 "args": {
-                  "base_file": "${packages}/Carbon/carbonSublime.sublime-settings",
+                  "base_file": "${packages}/Carbon/Carbon.sublime-settings",
                   "default": "{\n\t$0\n}\n"
                 }
               }

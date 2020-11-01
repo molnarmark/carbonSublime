@@ -1,4 +1,5 @@
 {
+  "trim_indent": true,
   "default": {
     "paddingVertical": "48px",
     "paddingHorizontal": "32px",
