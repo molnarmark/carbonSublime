@@ -2,7 +2,7 @@
 
 <p align="center">
   <img src="https://img.shields.io/github/v/release/molnarmark/carbonsublime"/>
-  <img src="https://img.shields.io/badge/-Sublime%20Text%203-black?style=flat-rounded&logo=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA4AAAAOCAMAAAAolt3jAAAAAXNSR0IB2cksfwAAAAlwSFlzAAALEwAACxMBAJqcGAAAALFQTFRFAAAA/681/6w2/6s2/6s2/6w2/6s2/6s2/6s2/6s2/642/6w2/6s2/6s2/6s2/6s2/6s2/6s2/6s2/6s2/6s2/603/ao2/6s2/6w2/641/6s2/6s2/6w2/qw2/6s2/6s2/6s2/qs29qU1/ao2/6w2/6s2/6s28KEz35Yv4pgw96Y1/6s29qU05psx4Zgw6p0y/6s2/6s2/6s26J0y/6s2/6s2/6s2/6s2/q02/6s2/6w2Gw5i1gAAADt0Uk5TAAEwd74LM73s/wJHod385+/+5a5cB/JqGQHbhjEugtcXWtP/H4HJ9P///8z////78siDHdygWh8CWRR3ufuBAAAAc0lEQVR4nGNggAJGJmYWGJuVjZmdg5MTzObi5uHl4wQBMJefEwoEwFwwU1BIWEQUwRUTl5BkQHA5OaWkZcBcWTl5qAjUHgVFJWUEV0VVTV1DUwvK1RYEyejo6ukjGWVgaGQM5fKZmJqZW0ANEuKxtII5HgC7swjoiG1GPAAAAABJRU5ErkJggg=="/>
+  <img src="https://raw.githubusercontent.com/molnarmark/carbonSublime/master/assets/sublbadge.png"/>
 </p>
 
 🚀 Sublime Text 3 Plugin for **[Carbon](https://carbon.now.sh)**.
