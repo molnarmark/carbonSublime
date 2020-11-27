@@ -5,7 +5,7 @@
   <img src="https://raw.githubusercontent.com/molnarmark/carbonSublime/master/assets/sublbadge.png"/>
 </p>
 
-🎨 Sublime Text 3 Plugin for **[Carbon](https://carbon.now.sh)**.
+## 🎨 Sublime Text 3 Plugin for **[Carbon](https://carbon.now.sh)**
 
 ### Installation
 
@@ -68,16 +68,24 @@ Preferences > Package Settings > Carbon > Settings. By default, it uses the init
 }
 ```
 
--   `trim_indent`: If set to true, lines starting with indents are trimmed. (**true** by default)
--   `show_status_messages`: If set to true, success/error messages are displayed in the status bar. (**true** by default)
--   `use_emojis_in_status_messages`: If set to true, indicator emojis are added the success/error messages in the status bar. (**true** by default)
+### `trim_indent`
+
+-   If set to true, lines starting with indents are trimmed. (**true** by default)
+
+### `show_status_messages`
+
+-   If set to true, success/error messages are displayed in the status bar. (**true** by default)
+
+### `use_emojis_in_status_messages`
+
+-   If set to true, indicator emojis are added the success/error messages in the status bar. (**true** by default)
 
 #### Custom Configuration
 
 ![](https://raw.githubusercontent.com/molnarmark/carbonSublime/master/assets/exportconfig.png)
 
--   Head over to the [Carbon](https://carbon.now.sh)
--   Configure the editor to your preferred look
--   Click the **Misc** tab
--   Press **Export config**
+-   Head over to the [Carbon](https://carbon.now.sh).
+-   Configure the editor to your preferred look.
+-   Click the **Misc** tab.
+-   Press **Export config**.
 -   Paste the downloaded configuration under the **default** property in the settings.
