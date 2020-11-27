@@ -104,7 +104,6 @@ PARAMS_SHORTHAND = {
 
 def convert_settings_to_params(settings):
     default = settings.get('default')
-
     query = {}
 
     for key in default:
@@ -136,16 +135,24 @@ def get_whitespace_from_line_beginning(view, region):
     )
     return " " * n_space
 
+def show_status_message(settings, window, emoji, message):
+    if settings.get('show_status_messages'):
+        if settings.get('use_emojis_in_status_messages'):
+            message = emoji + ' ' + message
+
+        window.status_message(message)
 
 class CarbonCommand(sublime_plugin.TextCommand):
     def run(self, edit, **kwargs):
-        code = self.normalize_code()
-        self.generate_carbon_link(code)
-
-    def normalize_code(self):
-        view = self.view
-
         settings = sublime.load_settings(SETTINGS_FILE)
+        code = self.normalize_code(settings)
+        if not code:
+            return
+
+        self.generate_carbon_link(code, settings)
+
+    def normalize_code(self, settings):
+        view = self.view
 
         indent_size = 0
         if len(view.sel()) and not view.sel()[0].empty():
@@ -157,20 +164,22 @@ class CarbonCommand(sublime_plugin.TextCommand):
             region = sublime.Region(0, view.size())
 
         body = view.substr(region)
+        if len(body) > CODE_MAX_LENGTH:
+            show_status_message(
+                settings,
+                self.view.window(),
+                '❌',
+                'Carbon: The selected text is too big.'
+            )
+            return None
+
         body = '\n'.join(x[indent_size:].rstrip() for x in body.splitlines())
         body = convert_tabs_using_tab_size(view, body)
 
-        if len(body) > CODE_MAX_LENGTH:
-            body = body[:CODE_MAX_LENGTH]
-            view.window().status_message(
-                'carbonSublime: The code was trimmed to {}.'.format(CODE_MAX_LENGTH)
-            )
-
         return body
 
-    def generate_carbon_link(self, code):
+    def generate_carbon_link(self, code, settings):
         view = self.view
-        settings = sublime.load_settings(SETTINGS_FILE)
         query = convert_settings_to_params(settings)
         query['code'] = code
 
@@ -186,3 +195,4 @@ class CarbonCommand(sublime_plugin.TextCommand):
         query['l'] = language
         base_url = 'https://carbon.now.sh/?'
         webbrowser.open(base_url + urlencode(query))
+        show_status_message(settings, self.view.window(), '✔️', 'Carbon opened in your default browser.')

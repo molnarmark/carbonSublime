@@ -1,5 +1,7 @@
 {
   "trim_indent": true,
+  "show_status_messages": true,
+  "use_emojis_in_status_messages": true,
   "default": {
     "paddingVertical": "48px",
     "paddingHorizontal": "32px",
@@ -24,7 +26,7 @@
     "watermark": false,
     "squaredImage": false,
     "hiddenCharacters": false,
-    "name": "Hello",
+    "name": "Shared directly from Sublime Text!",
     "width": 680
   }
 }

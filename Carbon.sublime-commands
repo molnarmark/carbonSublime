@@ -2,5 +2,13 @@
   {
     "caption": "Carbon: Share Selection",
     "command": "carbon"
+  },
+  {
+    "caption": "Preferences: Carbon Settings",
+    "command": "edit_settings",
+    "args": {
+        "base_file": "${packages}/Carbon/Carbon.sublime-settings",
+        "default": "// Carbon Settings\n{\n\t$0\n}\n"
+    }
   }
 ]
