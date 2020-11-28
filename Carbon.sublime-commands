@@ -4,6 +4,10 @@
     "command": "carbon"
   },
   {
+    "caption": "Carbon: Selection to iFrame",
+    "command": "carbon_to_iframe"
+  },
+  {
     "caption": "Preferences: Carbon Settings",
     "command": "edit_settings",
     "args": {
