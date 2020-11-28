@@ -7,6 +7,14 @@ import sublime_plugin
 SETTINGS_FILE = 'Carbon.sublime-settings'
 CODE_MAX_LENGTH = 3400
 
+EMBED_CODE = '''
+<iframe
+  src="{}"
+  style="width: 1024px; height: 473px; border:0; transform: scale(1); overflow:hidden;"
+  sandbox="allow-scripts allow-same-origin">
+</iframe>
+'''
+
 # Carbon language mapping
 LANGUAGE_MAPPING = {
     'Auto': 'auto',
@@ -123,12 +131,12 @@ def convert_settings_to_params(settings):
     return query
 
 def convert_tabs_using_tab_size(view, string):
-    tab_size = view.settings().get("tab_size")
+    tab_size = view.settings().get('tab_size')
 
     if tab_size:
-        return string.replace("\t", " " * tab_size)
+        return string.replace('\t', ' ' * tab_size)
 
-    return string.replace("\t", " ")
+    return string.replace('\t', ' ')
 
 
 def get_whitespace_from_line_beginning(view, region):
@@ -150,7 +158,7 @@ def normalize_code(cmdInstance, settings):
     indent_size = 0
     if len(view.sel()) and not view.sel()[0].empty():
         region = view.sel()[0]
-        if settings.get("trim_indent"):
+        if settings.get('trim_indent'):
             indent_size = len(get_whitespace_from_line_beginning(view, region))
     else:
         # no text selected, so consider the whole view
@@ -177,7 +185,7 @@ def generate_query_params(cmdInstance, code, settings):
     query['code'] = code
 
     # get current view syntax
-    syntax = os.path.splitext(os.path.basename(view.settings().get("syntax")))[0]
+    syntax = os.path.splitext(os.path.basename(view.settings().get('syntax')))[0]
 
     # set language from the mapping
     if syntax in LANGUAGE_MAPPING:
@@ -205,4 +213,12 @@ class CarbonCommand(sublime_plugin.TextCommand):
 class CarbonToIframeCommand(sublime_plugin.TextCommand):
     def run(self, edit, **kwargs):
         settings = sublime.load_settings(SETTINGS_FILE)
+        code = normalize_code(self, settings)
+        if not code:
+            return
+
+        params = generate_query_params(self, code, settings)
+        base_url = 'https://carbon.now.sh/embed?'
+        embed_src = base_url + urlencode(params)
+        sublime.set_clipboard(EMBED_CODE.format(embed_src))
         show_status_message(settings, self.view.window(), '✔️', 'iFrame code copied to your clipboard.')
