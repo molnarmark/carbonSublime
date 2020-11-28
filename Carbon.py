@@ -102,6 +102,8 @@ PARAMS_SHORTHAND = {
     'watermark': 'wm',
 }
 
+# Util Functions
+
 def convert_settings_to_params(settings):
     default = settings.get('default')
     query = {}
@@ -142,57 +144,65 @@ def show_status_message(settings, window, emoji, message):
 
         window.status_message(message)
 
+def normalize_code(cmdInstance, settings):
+    view = cmdInstance.view
+
+    indent_size = 0
+    if len(view.sel()) and not view.sel()[0].empty():
+        region = view.sel()[0]
+        if settings.get("trim_indent"):
+            indent_size = len(get_whitespace_from_line_beginning(view, region))
+    else:
+        # no text selected, so consider the whole view
+        region = sublime.Region(0, view.size())
+
+    body = view.substr(region)
+    if len(body) > CODE_MAX_LENGTH:
+        show_status_message(
+            settings,
+            cmdInstance.view.window(),
+            '❌',
+            'Carbon: The selected text is too big.'
+        )
+        return None
+
+    body = '\n'.join(x[indent_size:].rstrip() for x in body.splitlines())
+    body = convert_tabs_using_tab_size(view, body)
+
+    return body
+
+def generate_query_params(cmdInstance, code, settings):
+    view = cmdInstance.view
+    query = convert_settings_to_params(settings)
+    query['code'] = code
+
+    # get current view syntax
+    syntax = os.path.splitext(os.path.basename(view.settings().get("syntax")))[0]
+
+    # set language from the mapping
+    if syntax in LANGUAGE_MAPPING:
+        language = LANGUAGE_MAPPING[syntax]
+    else:
+        language = 'auto'
+
+    query['l'] = language
+    return query
+
+# Commands
+
 class CarbonCommand(sublime_plugin.TextCommand):
     def run(self, edit, **kwargs):
         settings = sublime.load_settings(SETTINGS_FILE)
-        code = self.normalize_code(settings)
+        code = normalize_code(self, settings)
         if not code:
             return
 
-        self.generate_carbon_link(code, settings)
-
-    def normalize_code(self, settings):
-        view = self.view
-
-        indent_size = 0
-        if len(view.sel()) and not view.sel()[0].empty():
-            region = view.sel()[0]
-            if settings.get("trim_indent"):
-                indent_size = len(get_whitespace_from_line_beginning(view, region))
-        else:
-            # no text selected, so consider the whole view
-            region = sublime.Region(0, view.size())
-
-        body = view.substr(region)
-        if len(body) > CODE_MAX_LENGTH:
-            show_status_message(
-                settings,
-                self.view.window(),
-                '❌',
-                'Carbon: The selected text is too big.'
-            )
-            return None
-
-        body = '\n'.join(x[indent_size:].rstrip() for x in body.splitlines())
-        body = convert_tabs_using_tab_size(view, body)
-
-        return body
-
-    def generate_carbon_link(self, code, settings):
-        view = self.view
-        query = convert_settings_to_params(settings)
-        query['code'] = code
-
-        # get current view syntax
-        syntax = os.path.splitext(os.path.basename(view.settings().get("syntax")))[0]
-
-        # set language from the mapping
-        if syntax in LANGUAGE_MAPPING:
-            language = LANGUAGE_MAPPING[syntax]
-        else:
-            language = 'auto'
-
-        query['l'] = language
+        params = generate_query_params(self, code, settings)
         base_url = 'https://carbon.now.sh/?'
-        webbrowser.open(base_url + urlencode(query))
+        webbrowser.open(base_url + urlencode(params))
         show_status_message(settings, self.view.window(), '✔️', 'Carbon opened in your default browser.')
+
+class CarbonToIframeCommand(sublime_plugin.TextCommand):
+    def run(self, edit, **kwargs):
+        settings = sublime.load_settings(SETTINGS_FILE)
+        show_status_message(settings, self.view.window(), '✔️', 'iFrame code copied to your clipboard.')
